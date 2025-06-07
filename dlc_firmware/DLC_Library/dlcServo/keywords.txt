@@ -1,0 +1,24 @@
+#######################################
+# Syntax Coloring Map Servo
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+dlcServo	KEYWORD1	dlcServo
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+dlcAttach	KEYWORD2
+dlcDetach	KEYWORD2
+dlcWrite	KEYWORD2
+dlcRead	KEYWORD2
+dlcAttached	KEYWORD2
+dlcWriteMicroseconds	KEYWORD2
+dlcReadMicroseconds	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
