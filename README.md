@@ -6,7 +6,7 @@
 
 The **DarkLight Cover/Calibrator (DLC)** is a DIY project to build a motorized telescope cover, flat panel, or a combined flip-flat system. Designed for versatility and modularity, the DLC supports a variety of setups:
 
-- **Light Panel Only** – 12V wall-mounted calibration panel (no servo)  
+- **Light Panel Only** – Wall-mounted calibration panel (no servo)  
 - **Servo Cover Only** – Flip cover for sky flats or darks  
 - **Flip-Flat Combo** – Integrated servo and light panel system
 
@@ -16,7 +16,7 @@ Optional **dew heating** reduces the need for additional equipment and cabling. 
 - ASCOM automation software (via the **ICoverCalibrator** driver)
 - The **INDI** platform for Linux/macOS users
 
-> ⚠️ **Note:** The DLC does **not** make the telescope weatherproof or dustproof. It is intended for use in controlled environments (e.g., observatories or supervised field use).
+> ⚠️ While the DLC **does NOT** make the telescope weatherproof or dustproof, it provides hands-off control and dark/light calibration for astrophotography in the field or an observatory.
 
 ---
 
@@ -41,7 +41,7 @@ Optional **dew heating** reduces the need for additional equipment and cabling. 
 ## ⚠️ Security Notice
 
 Only download DLC software from the official GitHub repository:  
-[https://github.com/YourUsername/DarkLight_CoverCalibrator](https://github.com/YourUsername/DarkLight_CoverCalibrator)
+[https://github.com/iwannabswiss/DarkLight_CoverCalibrator](https://github.com/iwannabswiss/DarkLight_CoverCalibrator)
 
 Do **not** trust `.exe`, `.zip`, or `.iso` files from unofficial sources, which may contain malware or unsupported changes.
 
