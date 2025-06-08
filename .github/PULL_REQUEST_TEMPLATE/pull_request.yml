@@ -1,0 +1,53 @@
+name: Pull Request
+description: Template for submitting a pull request to the DLC project
+title: "[PR]: "
+labels:
+  - review
+  - needs-testing
+assignees:
+  - iwannabswiss
+body:
+  - type: input
+    id: pr_title
+    attributes:
+      label: Pull Request Title
+      description: Provide a short descriptive title for your PR
+      placeholder: e.g. Fix servo control timing bug
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe what this pull request does and why
+      placeholder: Provide details about the change, problem solved, or feature added
+    validations:
+      required: true
+
+  - type: textarea
+    id: related_issues
+    attributes:
+      label: Related Issues / PRs
+      description: Reference any issues or PRs this relates to (e.g. #123)
+      placeholder: e.g. Fixes #45, relates to #67
+    validations:
+      required: false
+
+  - type: textarea
+    id: testing
+    attributes:
+      label: Testing
+      description: Describe how you tested this change
+      placeholder: Steps to reproduce, test environment, etc.
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional_notes
+    attributes:
+      label: Additional Notes
+      description: Any extra info for reviewers or maintainers
+      placeholder: Optional notes or comments
+    validations:
+      required: false
