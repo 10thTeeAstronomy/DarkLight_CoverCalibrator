@@ -43,7 +43,7 @@ Optional **dew heating** reduces the need for additional equipment and cabling. 
 Only download DLC software from the official GitHub repository:  
 [https://github.com/iwannabswiss/DarkLight_CoverCalibrator](https://github.com/iwannabswiss/DarkLight_CoverCalibrator)
 
-Do **not** trust `.exe`, `.zip`, or `.iso` files from unofficial sources, which may contain malware or unsupported changes.
+Do **not** trust `.exe`, `.msi`, `.zip`, or `.tar.gz` files from unofficial sources, which may contain malware or unsupported changes.
 
 ---
 
