@@ -1,19 +1,13 @@
----
-name: Bug report
-about: Create a report to help us improve
-title: ''
-labels: ''
-assignees: iwannabswiss
-
----
-
 name: Bug Report
 description: Report an issue with the DLC firmware, ASCOM app, INDI driver, or other related component
 title: "[BUG]: "
-labels: ["bug", "triage"]
-assignees: ["iwannabswiss"]
+labels:
+  - bug
+  - triage
+assignees:
+  - iwannabswiss
+# 👇 REQUIRED for Issue Forms
 body:
-
   - type: dropdown
     id: application
     attributes:
@@ -53,9 +47,8 @@ body:
   - type: textarea
     id: expected_behavior
     attributes:
-      label: Expected behavior
+      label: Expected Behavior
       description: What did you expect to happen?
-      placeholder: A clear and concise description of what you expected to happen.
     validations:
       required: true
 
@@ -63,7 +56,6 @@ body:
     id: os
     attributes:
       label: OS
-      description: Operating system used
       placeholder: e.g. Windows 11 Pro
     validations:
       required: true
@@ -97,37 +89,27 @@ body:
     attributes:
       label: Firmware Version
       placeholder: e.g. 1.1.1
-    validations:
-      required: false
 
   - type: input
     id: app_version
     attributes:
       label: DLC Windows App Version
       placeholder: e.g. 2.0.0.4
-    validations:
-      required: false
 
   - type: textarea
     id: screenshots
     attributes:
       label: Screenshots
       description: Paste a screenshot or drag and drop it here.
-    validations:
-      required: false
 
   - type: textarea
     id: logs
     attributes:
       label: Logs
-      description: Paste any logs or error messages here, or attach them to the issue.
-    validations:
-      required: false
+      description: Paste any logs or error messages here, or attach them.
 
   - type: textarea
     id: additional_context
     attributes:
       label: Additional Context
-      description: Add any other relevant information or system configuration details.
-    validations:
-      required: false
+      description: Add any other relevant information about your setup.
