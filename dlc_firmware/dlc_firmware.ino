@@ -2,15 +2,18 @@
   Name:         DarkLight Cover Calibrator (DLC)
   Author:       Nathan Woelfle
   Contributors: Taylor J (Initial Dew Heater Integration)
-  Date:         6/2/25
+  Date:         6/27/25
 
-  Version: 1.1.1
-  *View ReadMe for version change details
+  Version: 1.2.0
+  *View GitHub Wiki for version change details
+  https://github.com/10thTeeAstronomy/DarkLight_CoverCalibrator/wiki/Firmware-Version-History
   
-  Description: DarkLight is a fully ASCOM supported and compliant
-              device for use with ICoverCalibratorV1 driver and INDI platform.
+  Description: The DarkLight Cover Calibrator is a DIY project to build a 
+                motorized telescope cover, flat panel, or a combined flip-flat system.
+                It is full supported and compliant device on the INDI platform or
+                with ASCOM 6.5+ or newer using the ICoverCalibrator driver.
 
-              https://sourceforge.net/projects/darklight-cover-calibrator/
+              https://github.com/10thTeeAstronomy/DarkLight_CoverCalibrator
 
   (c) Copyright Nathan Woelfle 2020-present day. All Rights Reserved.
 
@@ -91,7 +94,7 @@ const uint32_t debounceDelay = 150; //(ms) debounce time for the buttons *may ne
 //------------ VARIABLE DECLARATION -------------
 
 //----- VERSIONING CONTROL -----
-const char* dlcVersion = "v1.1.1";
+const char* dlcVersion = "v1.2.0";
 
 //----- MEMORY -----
 #ifdef ENABLE_SAVING_TO_MEMORY
@@ -129,10 +132,11 @@ uint8_t heaterState; //reports # 0:NotPresent, 1:Off, 3:On, 4:Unknown, 5:Error, 
 #ifdef ENABLE_SERIAL_CONTROL
   const char startMarker = '<'; //signal to process serial command
   const char endMarker = '>'; //signal that serial command is finished
-  const uint8_t maxNumChars = 10; //set max num of characters in receive array
-  char receivedChars[maxNumChars]; //set array
+  const uint8_t maxNumReceivedChars = 10; //set max num of characters in array
+  const uint8_t maxNumSendChars = 75; //set max num of characters in array
+  char receivedChars[maxNumReceivedChars]; //set array
   bool commandComplete = false; //flag to process command when end marker received
-  char response[maxNumChars];
+  char response[maxNumSendChars];
 #endif
 
 //----- COVER -----
@@ -206,7 +210,7 @@ uint8_t heaterState; //reports # 0:NotPresent, 1:Off, 3:On, 4:Unknown, 5:Error, 
   const float maxPWM = 255.0;    //max PWM value for heater control
   uint32_t previousDewMillis; //timing for dew control
   uint32_t startHeaterTimer;
-  float outsideTemp, humidityLevel; //sensors to monitor outdoor environment
+  float outsideTemp, humidityLevel, dewPoint; //sensors to monitor outdoor environment
 
   //dew heater system constants - DO NOT MODIFY
   const float DEW_POINT_ALPHA = 17.27;    // August-Roche-Magnus dew point constant
@@ -218,12 +222,14 @@ uint8_t heaterState; //reports # 0:NotPresent, 1:Off, 3:On, 4:Unknown, 5:Error, 
     OneWire oneWireA(chOneHeatTempSensor); //setup oneWire instance to communicate with sensor one
     DallasTemperature chOneSensor(&oneWireA);
     float heaterOneTemp; //hold heater temp
+    uint8_t heaterOnePWM = 0; //PWM value for heater one
   #endif
 
   #ifdef HEATER_TWO_INSTALLED
     OneWire oneWireB(chTwoHeatTempSensor); //setup oneWire instance to communicate with sensor two
     DallasTemperature chTwoSensor(&oneWireB);
     float heaterTwoTemp; //hold heater temp
+    uint8_t heaterTwoPWM = 0; //PWM value for heater two
   #endif
   
   #ifdef ENABLE_BME280
@@ -455,8 +461,8 @@ void initializeVariables(){
           else {
             receivedChars[index] = incomingChar;
             index++;
-            if (index >= maxNumChars) {
-              index = maxNumChars - 1;
+            if (index >= maxNumReceivedChars) {
+              index = maxNumReceivedChars - 1;
             }
           }
         } else {
@@ -591,6 +597,45 @@ void initializeVariables(){
         break;
 
       #ifdef HEATER_INSTALLED
+        case 'Y':
+          //send all current data values
+          char tempBuf[10];            // buffer for float conversion
+          response[0] = '\0';          // clear the response buffer
+
+          #ifdef HEATER_ONE_INSTALLED
+            dtostrf(heaterOneTemp, 0, 1, tempBuf);  // no leading spaces
+            snprintf(response, maxNumSendChars, "h1t:%s:h1p:%d", tempBuf, heaterOnePWM);
+          #else
+            snprintf(response, maxNumSendChars, "h1t:na:h1p:na");
+          #endif
+
+          #ifdef HEATER_TWO_INSTALLED
+            dtostrf(heaterTwoTemp, 0, 1, tempBuf);
+            snprintf(response + strlen(response), maxNumSendChars - strlen(response),
+                    "|h2t:%s:h2p:%d", tempBuf, heaterTwoPWM);
+          #else
+            snprintf(response + strlen(response), maxNumSendChars - strlen(response),
+                    "|h2t:na:h2p:na");
+          #endif
+
+          // outside temp
+          dtostrf(outsideTemp, 0, 1, tempBuf);
+          snprintf(response + strlen(response), maxNumSendChars - strlen(response),
+                  "|o:%s", tempBuf);
+
+          // humidity
+          dtostrf(humidityLevel, 0, 1, tempBuf);
+          snprintf(response + strlen(response), maxNumSendChars - strlen(response),
+                  ":h:%s", tempBuf);
+
+          // dew point
+          dtostrf(dewPoint, 0, 1, tempBuf);
+          snprintf(response + strlen(response), maxNumSendChars - strlen(response),
+                  ":d:%s", tempBuf);
+
+          respondToCommand(response);
+          break;
+
         //autoHeat set to (true)
         case 'Q':
           autoHeat = true; //set flag
@@ -676,7 +721,7 @@ void initializeVariables(){
 
   void respondToCommand(const char* response) {
     //acknowledge response to command
-    char buffer[maxNumChars];
+    char buffer[maxNumSendChars];
     snprintf(buffer, sizeof(buffer), "%c%s%c", startMarker, response, endMarker);
     Serial.print(buffer);
 
@@ -1106,8 +1151,6 @@ void initializeVariables(){
       
       if (currentDewMillis - previousDewMillis >= dewInterval){
         previousDewMillis = currentDewMillis; //update time check
-        static uint8_t heaterOnePWM = 0; //initialize PWM value for heater one
-        static uint8_t heaterTwoPWM = 0; //initialize PWM value for heater two
   
         //read sensors and check for errors
         if (readSensors()) {
@@ -1116,7 +1159,7 @@ void initializeVariables(){
         
         //calculate dew point
         float temp = ((DEW_POINT_ALPHA * outsideTemp) / (DEW_POINT_BETA + outsideTemp)) + log(humidityLevel/100.0);
-        float dewPoint = (DEW_POINT_BETA * temp) / (DEW_POINT_ALPHA - temp);
+        dewPoint = (DEW_POINT_BETA * temp) / (DEW_POINT_ALPHA - temp);
 
         #ifdef HEATER_ONE_INSTALLED
           activateHeater(heaterOneTemp, chOneHeater, dewPoint, deltaPoint, maxPWM, PWM_MAP_MULTIPLIER, PWM_MAP_RANGE, heaterOnePWM);
