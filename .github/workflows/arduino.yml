@@ -1,0 +1,32 @@
+name: Arduino CI
+
+on:
+  push:
+    paths:
+      - 'dlc_firmware/**'
+  pull_request:
+    paths:
+      - 'dlc_firmware/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Arduino CLI
+        uses: arduino/setup-arduino-cli@v1
+
+      - name: Install Arduino AVR core
+        run: |
+          arduino-cli core update-index
+          arduino-cli core install arduino:avr
+
+      - name: Compile firmware for Arduino Nano
+        run: |
+          arduino-cli compile \
+            --fqbn arduino:avr:nano \
+            --libraries dlc_firmware/DLC_Library \
+            dlc_firmware
