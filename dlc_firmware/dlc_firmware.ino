@@ -46,7 +46,7 @@ const uint8_t primaryServoOpenCoverAngle = 0; //position angle servo opens to, v
 const uint8_t primaryServoCloseCoverAngle = 180; //position angle servo closes to, value between (0-180), *may need to be adjusted based on the type of servo used
 
 //----- (UA) (COVER) SECONDARY SERVO PARAMETERS -----
-//#define SECONDARY_SERVO_INSTALLED //uncomment if using additional servo with different angles
+//#define SECONDARY_SERVO_INSTALLED //uncomment if using additional servo
 const uint16_t secondaryServoMinPulseWidth = 500; //refer to servo manufacture for usec pulses and set accordingly
 const uint16_t secondaryServoMaxPulseWidth = 2500; //refer to servo manufacture for usec pulses and set accordingly
 const uint8_t secondaryServoOpenCoverAngle = 0; //position angle servo opens to, value between (0-180), *may need to be adjusted based on the type of servo used
@@ -129,7 +129,7 @@ uint8_t heaterState; //reports # 0:NotPresent, 1:Off, 3:On, 4:Unknown, 5:Error, 
 #ifdef ENABLE_SERIAL_CONTROL
   const char startMarker = '<'; //signal to process serial command
   const char endMarker = '>'; //signal that serial command is finished
-  const uint8_t maxNumChars = 10; //set max num of characters in array
+  const uint8_t maxNumChars = 10; //set max num of characters in receive array
   char receivedChars[maxNumChars]; //set array
   bool commandComplete = false; //flag to process command when end marker received
   char response[maxNumChars];
