@@ -1,12 +1,12 @@
 name: Arduino CI
 
 on:
-  push:
-    paths:
-      - 'dlc_firmware/**'
   pull_request:
-    paths:
-      - 'dlc_firmware/**'
+    branches:
+      - master
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -16,15 +16,28 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Detect firmware changes
+        id: changes
+        run: |
+          git fetch origin master
+          if git diff --name-only origin/master...HEAD | grep -q "^dlc_firmware/"; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Install Arduino CLI
+        if: steps.changes.outputs.changed == 'true'
         uses: arduino/setup-arduino-cli@v1
 
       - name: Install Arduino AVR core
+        if: steps.changes.outputs.changed == 'true'
         run: |
           arduino-cli core update-index
           arduino-cli core install arduino:avr
 
       - name: Compile firmware for Arduino Nano
+        if: steps.changes.outputs.changed == 'true'
         run: |
           arduino-cli compile \
             --fqbn arduino:avr:nano \
