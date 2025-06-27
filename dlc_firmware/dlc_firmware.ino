@@ -129,7 +129,7 @@ uint8_t heaterState; //reports # 0:NotPresent, 1:Off, 3:On, 4:Unknown, 5:Error, 
 #ifdef ENABLE_SERIAL_CONTROL
   const char startMarker = '<'; //signal to process serial command
   const char endMarker = '>'; //signal that serial command is finished
-  const uint8_t maxNumChars = 10; //set max num of characters in array
+  const uint8_t maxNumChars = 10; //set max num of characters in receive array
   char receivedChars[maxNumChars]; //set array
   bool commandComplete = false; //flag to process command when end marker received
   char response[maxNumChars];
