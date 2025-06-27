@@ -4,6 +4,15 @@ This folder contains the **firmware** for the [DarkLight Cover Calibrator](https
 
 ---
 
+## 🔖 Firmware Version
+
+**Current Version:** `v1.2.0`  
+Released: June 27, 2025
+
+📄 See full [Firmware Version History](https://github.com/10thTeeAstronomy/DarkLight_CoverCalibrator/wiki/Firmware-Version-History)
+
+---
+
 ## 🚀 Getting Started
 
 You can use either the **Arduino IDE** or **PlatformIO** to build and upload the firmware.
