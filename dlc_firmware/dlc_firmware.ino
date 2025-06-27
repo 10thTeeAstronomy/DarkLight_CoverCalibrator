@@ -27,13 +27,13 @@
 //-----------------------------------------------------------
 
 //----- (UA) USER-ADJUSTABLE OPTIONS ------
-#define COVER_INSTALLED //uncomment if installed
-#define LIGHT_INSTALLED //uncomment if installed
-//#define HEATER_INSTALLED //uncomment if installed
-#define ENABLE_SERIAL_CONTROL //uncomment to use serial interface
-//#define ENABLE_MANUAL_CONTROL //uncomment to use physical buttons
-#define ENABLE_SAVING_TO_MEMORY //uncomment to save current states
-//#define SHOW_HEARTBEAT //for debugging purposes only. to show loop is active, uncomment to flash builtin led
+#define COVER_INSTALLED //comment out if not utilized
+#define LIGHT_INSTALLED //comment out if not utilized
+#define HEATER_INSTALLED //comment out if not utilized
+#define ENABLE_SERIAL_CONTROL //comment out if not utilized
+#define ENABLE_MANUAL_CONTROL //comment out if not utilized
+#define ENABLE_SAVING_TO_MEMORY //comment out if not utilized
+//#define SHOW_HEARTBEAT //for debugging purposes only. shows loop is active, uncomment to flash builtin led
 const uint32_t serialSpeed = 115200; //values are: (9600, 19200, 38400, 57600, (default 115200), 230400)
 
 //----- (UA) (COVER) -----
