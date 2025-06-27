@@ -9,7 +9,7 @@ on:
       - 'dlc_firmware/**'
 
 jobs:
-  build:
+  firmware-nano:
     runs-on: ubuntu-latest
 
     steps:
