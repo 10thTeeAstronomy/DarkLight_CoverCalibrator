@@ -5,7 +5,7 @@ labels:
   - review
   - needs-testing
 assignees:
-  - iwannabswiss
+  - 10thTeeAstronomy
 body:
   - type: input
     id: pr_title
