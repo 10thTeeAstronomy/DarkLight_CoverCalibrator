@@ -1,9 +1,5 @@
 # DarkLight Cover/Calibrator (DLC)
 
-> 📢 **Personal and academic use only.**  
-> Commercial use is **prohibited** without written permission.  
-> See full license and legal terms below.
-
 The **DarkLight Cover/Calibrator (DLC)** is a DIY project to build a motorized telescope cover, flat panel, or a combined flip-flat system. Designed for versatility and modularity, the DLC supports a variety of setups:
 
 - **Light Panel Only** – Wall-mounted calibration panel (no servo)  
@@ -37,6 +33,12 @@ Optional **dew heating** reduces the need for additional equipment and cabling.
 - **Electronically adjustable brightness control**
 - **Smooth illumination circuit** (eliminates PWM banding)
 - Save **broadband and narrowband calibration values**
+
+---
+
+> 📢 **Personal and academic use only.**  
+> Commercial use is **prohibited** without written permission.  
+> See full license and legal terms below.
 
 ---
 
