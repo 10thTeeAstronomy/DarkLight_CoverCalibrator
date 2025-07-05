@@ -53,7 +53,7 @@ Do **not** trust `.exe`, `.msi`, `.zip`, or `.tar.gz` files from unofficial sour
 
 ## 📜 License
 
-© 2020–2025 Nathan Woelfle. All rights reserved.
+© 2020–2025 10th Tee Astronomy. All rights reserved.
 
 This project is licensed under the  
 [Creative Commons Attribution-NonCommercial 4.0 International License](https://creativecommons.org/licenses/by-nc/4.0/)

@@ -6,8 +6,7 @@ This folder contains the **firmware** for the [DarkLight Cover Calibrator](https
 
 ## 🔖 Firmware Version
 
-**Current Version:** `v1.2.0`  
-Released: June 27, 2025
+
 
 📄 See full [Firmware Version History](https://github.com/10thTeeAstronomy/DarkLight_CoverCalibrator/wiki/Firmware-Version-History)
 
@@ -52,7 +51,7 @@ The firmware supports:
 | `EEPROMWearLevel`          | EEPROM wear management (AVR only)           |
 | `dlcServo`                 | Smooth servo movement with speed control    |
 
-> ⚠️ Depending on the features you choose to enable, not all libraries may be required.  Refer to the [Wiki](https://github.com/10thTeeAstronomy/DarkLight_CoverCalibrator/wiki) for more details.
+> ⚠️ Depending on the enabled features, not all libraries may be required.  Refer to the [Wiki](https://github.com/10thTeeAstronomy/DarkLight_CoverCalibrator/wiki) for more details.
 
 ---
 
@@ -76,7 +75,7 @@ We welcome contributions! Please see the [CONTRIBUTING.md](../.github/CONTRIBUTI
 
 ## 📜 License
 
-© 2020–2025 Nathan Woelfle. All rights reserved.
+© 2020–2025 10th Tee Astronomy. All rights reserved.
 
 This project is licensed under the  
 **Creative Commons Attribution-NonCommercial 4.0 International License**.
